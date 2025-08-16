@@ -1,0 +1,471 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Student Management — Login & Registration</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+
+        <!-- jQuery (used by the page) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+        <style>
+            :root{
+                --card-bg: #ffffff;
+                --page-bg-start: #f5f7fa;
+                --page-bg-end: #c3cfe2;
+                --primary: #0d6efd;
+                --muted: #6c757d;
+            }
+
+            body{
+                background: linear-gradient(135deg, var(--page-bg-start), var(--page-bg-end));
+                font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+                padding-bottom: 3rem;
+            }
+
+            header.site-header{
+                background: #343a40;
+                color: #fff;
+                padding: 1rem;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            }
+
+            .main-controls{
+                max-width: 960px;
+                margin: 1.25rem auto;
+            }
+
+            .auth-card{
+                background: var(--card-bg);
+                border-radius: .75rem;
+                box-shadow: 0 6px 18px rgba(33,37,41,0.08);
+                padding: 1.25rem;
+                margin: 1rem auto;
+                max-width: 720px;
+            }
+
+            .auth-card h2{
+                color: #222;
+                font-weight: 600;
+            }
+
+            .form-actions{
+                display:flex;
+                gap:.5rem;
+                justify-content:center;
+                margin-top: .75rem;
+            }
+
+            .toggle-link{
+                cursor: pointer;
+                color: var(--primary);
+                text-decoration: underline;
+                background: none;
+                border: none;
+                padding: 0;
+            }
+
+            .hidden { display: none !important; }
+
+            .password-toggle{
+                cursor: pointer;
+                border: none;
+                background: transparent;
+                color: var(--muted);
+                font-size: 0.95rem;
+            }
+
+            footer.site-footer{
+                margin-top: 2rem;
+                background: #222;
+                color: #f8f9fa;
+                padding: 1rem 0;
+                text-align:center;
+            }
+
+            @media (min-width: 768px){
+                .form-row { display:flex; gap:.75rem; align-items:center; }
+                .form-row .col { flex:1; }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="container d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h5 mb-0">Student Management System</h1>
+                    <small class="text-muted">Project / Resume demo</small>
+                </div>
+                <div class="text-end text-white-50">
+                    <small>Contact: info@example.com</small>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-controls container">
+            <div class="d-flex justify-content-center mb-3">
+                <div class="btn-group" role="group" aria-label="Choose login">
+                    <button type="button" class="btn btn-outline-success" data-target="student">Student</button>
+                    <button type="button" class="btn btn-outline-success" data-target="faculty">Faculty</button>
+                    <button type="button" class="btn btn-outline-success" data-target="admin">Admin</button>
+                </div>
+            </div>
+
+            <!-- LOGIN CARDS -->
+            <section id="login-area">
+                <div class="auth-card" id="student-login" aria-hidden="true">
+                    <h2 class="text-center">Student Login</h2>
+                    <form action="add1.jsp" method="post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="student-email" class="form-label">Email</label>
+                            <input id="student-email" name="email" type="email" class="form-control" placeholder="you@example.com" required>
+                            <div class="invalid-feedback">Please enter a valid email.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="student-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input id="student-password" name="password" type="password" class="form-control" placeholder="••••••" required>
+                                <button type="button" class="password-toggle btn btn-outline-secondary" aria-label="Toggle password" data-target="#student-password">Show</button>
+                            </div>
+                            <div class="invalid-feedback">Password is required.</div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="button" class="btn btn-outline-primary" data-show-register="student">New user? Register</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-card hidden" id="faculty-login" aria-hidden="true">
+                    <h2 class="text-center">Faculty Login</h2>
+                    <form action="add1.jsp" method="post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="faculty-email" class="form-label">Email</label>
+                            <input id="faculty-email" name="email" type="email" class="form-control" required>
+                            <div class="invalid-feedback">Please enter a valid email.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="faculty-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input id="faculty-password" name="password" type="password" class="form-control" required>
+                                <button type="button" class="password-toggle btn btn-outline-secondary" data-target="#faculty-password">Show</button>
+                            </div>
+                            <div class="invalid-feedback">Password is required.</div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="button" class="btn btn-outline-primary" data-show-register="faculty">New user? Register</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-card hidden" id="admin-login" aria-hidden="true">
+                    <h2 class="text-center">Admin Login</h2>
+                    <form action="add1.jsp" method="post" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="admin-email" class="form-label">Email</label>
+                            <input id="admin-email" name="email" type="email" class="form-control" required>
+                            <div class="invalid-feedback">Please enter a valid email.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="admin-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input id="admin-password" name="password" type="password" class="form-control" required>
+                                <button type="button" class="password-toggle btn btn-outline-secondary" data-target="#admin-password">Show</button>
+                            </div>
+                            <div class="invalid-feedback">Password is required.</div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="button" class="btn btn-outline-primary" data-show-register="admin">New user? Register</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- REGISTRATION CARDS -->
+            <section id="register-area">
+
+                <div class="auth-card hidden" id="student-register" aria-hidden="true">
+                    <h2 class="text-center">Student Registration</h2>
+                    <form action="add2.jsp" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="stu-fullname" class="form-label">Full name</label>
+                            <input id="stu-fullname" name="fn" class="form-control" required>
+                            <div class="invalid-feedback">Full name is required.</div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col">
+                                <label for="stu-dob" class="form-label">Date of birth</label>
+                                <input id="stu-dob" name="dob" type="date" class="form-control" required>
+                            </div>
+                            <div class="col">
+                                <label class="form-label d-block">Gender</label>
+                                <div class="form-check form-check-inline">
+                                    <input id="stu-gender-m" name="gender" value="male" class="form-check-input" type="radio" required>
+                                    <label class="form-check-label" for="stu-gender-m">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input id="stu-gender-f" name="gender" value="female" class="form-check-input" type="radio" required>
+                                    <label class="form-check-label" for="stu-gender-f">Female</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="stu-email" class="form-label">Email</label>
+                            <input id="stu-email" name="email" type="email" class="form-control" required>
+                            <div class="invalid-feedback">Valid email required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="stu-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input id="stu-password" name="password" type="password" class="form-control" required>
+                                <button type="button" class="password-toggle btn btn-outline-secondary" data-target="#stu-password">Show</button>
+                            </div>
+                            <div class="invalid-feedback">Password required.</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="stu-phone" class="form-label">Phone</label>
+                            <input id="stu-phone" name="pn" type="tel" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea name="addr" class="form-control" rows="2" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Medical information</label>
+                            <textarea name="mi" class="form-control" rows="2"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Register</button>
+                            <button type="button" class="btn btn-outline-secondary" data-back-to="student">Back to Student Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-card hidden" id="faculty-register" aria-hidden="true">
+                    <h2 class="text-center">Faculty Registration</h2>
+                    <form action="add3.jsp" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="fac-fullname" class="form-label">Full name</label>
+                            <input id="fac-fullname" name="fn" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fac-email" class="form-label">Email</label>
+                            <input id="fac-email" name="email" type="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fac-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input id="fac-password" name="password" type="password" class="form-control" required>
+                                <button type="button" class="password-toggle btn btn-outline-secondary" data-target="#fac-password">Show</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fac-phone" class="form-label">Phone</label>
+                            <input id="fac-phone" name="pn" type="tel" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fac-qual" class="form-label">Educational qualifications</label>
+                            <input id="fac-qual" name="eq" type="file" class="form-control" multiple>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Register</button>
+                            <button type="button" class="btn btn-outline-secondary" data-back-to="faculty">Back to Faculty Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="auth-card hidden" id="admin-register" aria-hidden="true">
+                    <h2 class="text-center">Admin Registration</h2>
+                    <form action="add4.jsp" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                        <div class="mb-3">
+                            <label for="adm-fullname" class="form-label">Full name</label>
+                            <input id="adm-fullname" name="fn" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="adm-email" class="form-label">Email</label>
+                            <input id="adm-email" name="email" type="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="adm-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input id="adm-password" name="password" type="password" class="form-control" required>
+                                <button type="button" class="password-toggle btn btn-outline-secondary" data-target="#adm-password">Show</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="adm-phone" class="form-label">Phone</label>
+                            <input id="adm-phone" name="pn" type="tel" class="form-control" required>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">Register</button>
+                            <button type="button" class="btn btn-outline-secondary" data-back-to="admin">Back to Admin Login</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Bootstrap JS bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+        <script>
+            (function($){
+                // show/hide login cards via top buttons
+                $('[data-target]').on('click', function(){
+                    var target = $(this).data('target');
+                    // hide all login & register
+                    $('#login-area > .auth-card, #register-area > .auth-card').addClass('hidden').attr('aria-hidden','true');
+                    // show selected login
+                    $('#' + target + '-login').removeClass('hidden').attr('aria-hidden','false');
+                    // scroll into view
+                    setTimeout(function(){ $('#' + target + '-login')[0].scrollIntoView({behavior:'smooth', block:'center'}); }, 80);
+                });
+
+                // open registration from login
+                $('[data-show-register]').on('click', function(){
+                    var role = $(this).data('show-register');
+                    $('#login-area > .auth-card, #register-area > .auth-card').addClass('hidden').attr('aria-hidden','true');
+                    $('#' + role + '-register').removeClass('hidden').attr('aria-hidden','false');
+                    setTimeout(function(){ $('#' + role + '-register')[0].scrollIntoView({behavior:'smooth', block:'center'}); }, 80);
+                });
+
+                // back buttons
+                $('[data-back-to]').on('click', function(){
+                    var role = $(this).data('back-to');
+                    $('#login-area > .auth-card, #register-area > .auth-card').addClass('hidden').attr('aria-hidden','true');
+                    $('#' + role + '-login').removeClass('hidden').attr('aria-hidden','false');
+                    setTimeout(function(){ $('#' + role + '-login')[0].scrollIntoView({behavior:'smooth', block:'center'}); }, 80);
+                });
+
+                // Password toggle buttons
+                $('.password-toggle').on('click', function(){
+                    var target = $($(this).data('target'));
+                    if (!target.length) return;
+                    var type = target.attr('type') === 'password' ? 'text' : 'password';
+                    target.attr('type', type);
+                    $(this).text(type === 'password' ? 'Show' : 'Hide');
+                });
+
+                // Simple client-side bootstrap validation
+                (function () {
+                    'use strict'
+                    var forms = document.querySelectorAll('.needs-validation')
+                    Array.prototype.slice.call(forms).forEach(function (form) {
+                        form.addEventListener('submit', function (event) {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+                            form.classList.add('was-validated')
+                        }, false)
+                    })
+                })();
+
+                // show student login by default
+                $('[data-target="student"]').trigger('click');
+            })(jQuery);
+        </script>
+    </body>
+    </html>
+    
+<footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+        <p class="mb-0">&copy; 2024 Student Management System. All rights reserved.</p>
+    </div>
+</footer>
+<script>
+  $(document).ready(function(){
+  $("#sl").click(function(){
+ $(".fm1").show(800);
+ $(".rfm1").hide(800);
+   $(".rfm2").hide(800);
+   $(".rfm3").hide(800);
+  });
+  $("#fl").click(function(){
+ $(".fm1").hide(800);
+ $(".fm3").hide(800);
+ $(".rfm1").hide(800);
+   $(".rfm2").hide(800);
+   $(".rfm3").hide(800);
+  });
+  $("#al").click(function(){
+ $(".fm1").hide(800);
+ $(".fm2").hide(800);
+   $(".rfm1").hide(800);
+   $(".rfm2").hide(800);
+   $(".rfm3").hide(800);
+  });
+  $("#sl").click(function(){
+ $(".fm2").hide(800);
+ $(".fm3").hide(800);
+   $(".rfm1").hide(800);
+   $(".rfm2").hide(800);
+   $(".rfm3").hide(800);
+  });
+});
+
+$(document).ready(function(){
+  $("#fl").click(function(){
+ $(".fm2").show(800);
+ $(".rfm2").hide(800);
+  });
+});
+$(document).ready(function(){
+  $("#al").click(function(){
+ $(".fm3").show(800);
+ $(".rfm3").hide(800);
+  });
+});
+$(document).ready(function(){
+  $(".regis1").click(function(){
+ $(".rfm1").show(800);
+ $(".fm1").hide(800);
+  });
+});
+$(document).ready(function(){
+  $(".regis2").click(function(){
+ $(".rfm2").show(800);
+ $(".fm2").hide(800);
+  });
+});
+$(document).ready(function(){
+  $(".regis3").click(function(){
+ $(".rfm3").show(800);
+ $(".fm3").hide(800);
+  });
+});
+</script>
+</body>
+</html>
